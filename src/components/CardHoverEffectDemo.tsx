@@ -2,7 +2,7 @@ import { HoverEffect } from "@/components/ui/card-hover-effect";
 
 export function CardHoverEffectDemo() {
   return (
-    <div className="max-w-4xl px-2 md:px-0">
+    <div className="max-w-5xl px-2 md:px-0">
       <HoverEffect items={projects} />
     </div>
   );
@@ -10,19 +10,19 @@ export function CardHoverEffectDemo() {
 export const projects = [
   {
     title: "Webistes",
-    count: 150,
+    count: 2550,
   },
   {
     title: "Logos",
-    count: 250,
+    count: 2550,
   },
 
   {
     title: "Mobile Apps",
-    count: 50,
+    count: 550,
   },
   {
     title: "Ecommerce Websites",
-    count: 100,
+    count: 1750,
   },
 ];

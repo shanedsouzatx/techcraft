@@ -10,7 +10,7 @@ export function CardHoverEffectDemo() {
 export const projects = [
   {
     title: "Webistes",
-    count: 2550,
+    count: 2150,
   },
   {
     title: "Logos",

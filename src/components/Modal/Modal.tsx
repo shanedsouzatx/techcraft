@@ -73,7 +73,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
           Accept: "application/json",
         },
         body: JSON.stringify({
-          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
+          access_key: 'a91d3e85-9c0f-41bb-bb33-c81da55c9c27',
           name: data.name,
           email: data.email,
           phone: data.phone,
@@ -179,7 +179,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
               <div className="w-full flex justify-center">
                 <div className="transform scale-90 mt-4 md:scale-100">
                   <ReCAPTCHA
-                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
+                    sitekey="6Ldilt4qAAAAALPYM37jOcJ-BRc6jEZn08IPlfnR"
                     onChange={(token: string | null) => token && setValue("captcha", token)}
                   />
                   {errors.captcha && (

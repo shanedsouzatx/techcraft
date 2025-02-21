@@ -69,7 +69,7 @@ const Contact = () => {
           Accept: "application/json",
         },
         body: JSON.stringify({
-          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
+          access_key: 'a91d3e85-9c0f-41bb-bb33-c81da55c9c27',
           name: data.name,
           email: data.email,
           phone: data.phone,
@@ -164,7 +164,7 @@ const Contact = () => {
 
             <div className="mt-4">
               <ReCAPTCHA
-                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
+                sitekey="6Ldilt4qAAAAALPYM37jOcJ-BRc6jEZn08IPlfnR"
                 onChange={(token: string | null) => token && setValue("captcha", token)}
               />
               {errors.captcha && <p className="text-red-500 text-sm mt-1">{errors.captcha.message}</p>}

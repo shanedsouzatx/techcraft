@@ -91,7 +91,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto bg-white py-10 px-6 my-10 footer-form-shadow">
+    <div className="max-w-6xl mx-auto bg-white pt-12 pb-8 px-8 my-10 footer-form-shadow rounded-2xl">
       <div className="flex flex-col">
         <h3 className="text-3xl text-center md:text-left font-semibold">
           Ready to Experience Business Growth Beyond Limits?
@@ -158,24 +158,59 @@ const Contact = () => {
               rows={8}
               placeholder="Leave Your Message"
               {...register("message")}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl block w-full p-4 resize-none"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl block w-full p-4 resize-none hover:border-[#5114AE] focus:border-[#5114AE] transition-colors"
             />
             {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>}
 
-            <div className="mt-4">
-              <ReCAPTCHA
-                sitekey="6Ldilt4qAAAAALPYM37jOcJ-BRc6jEZn08IPlfnR"
-                onChange={(token: string | null) => token && setValue("captcha", token)}
-              />
-              {errors.captcha && <p className="text-red-500 text-sm mt-1">{errors.captcha.message}</p>}
+            <div className="flex flex-col items-center mt-6">
+              <div className="transform scale-90 md:scale-100 shadow-md rounded-lg overflow-hidden">
+                <ReCAPTCHA
+                  sitekey="6Ldilt4qAAAAALPYM37jOcJ-BRc6jEZn08IPlfnR"
+                  onChange={(token: string | null) => token && setValue("captcha", token)}
+                />
+              </div>
+              {errors.captcha && (
+                <p className="text-red-500 text-sm text-center mt-2">
+                  {errors.captcha.message}
+                </p>
+              )}
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full text-sm font-medium cursor-pointer py-4 mt-4 bg-gradient-to-r from-[#5114AE] to-[#802FCE] text-white rounded-full"
+              className="w-full text-lg font-semibold cursor-pointer py-4 mt-6 
+                bg-gradient-to-r from-[#5114AE] to-[#802FCE] text-white rounded-full
+                transform transition-all duration-300 hover:shadow-[0_8px_30px_rgb(81,20,174,0.3)]
+                hover:-translate-y-1 disabled:opacity-70 disabled:cursor-not-allowed"
             >
-              {loading ? "Submitting..." : "Submit"}
+              {loading ? (
+                <div className="flex items-center justify-center gap-2">
+                  <svg
+                    className="animate-spin h-5 w-5 mr-2"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    />
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    />
+                  </svg>
+                  Submitting...
+                </div>
+              ) : (
+                "Submit Now"
+              )}
             </button>
           </div>
         </div>

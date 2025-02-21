@@ -1,0 +1,553 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+
+@layer components {
+  .button-animation {
+    @apply relative overflow-visible;
+    /* Allow overflow for the ripple */
+    animation: pump 2s infinite;
+  }
+
+  .button-animation::before {
+    content: '';
+    @apply absolute bg-white opacity-20 rounded-full;
+    width: 100%;
+    /* Adjust size to be larger than the button */
+    height: 300%;
+    /* Adjust size to be larger than the button */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    animation: ripple 2s infinite;
+  }
+
+
+  @keyframes ripple {
+    0% {
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 1;
+    }
+
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0;
+    }
+  }
+
+  @keyframes pump {
+    0%, 100% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(1.1);
+    }
+  }
+
+}
+
+
+/* Apply the custom scrollbar styling */
+.overflow-y-scroll::-webkit-scrollbar {
+  width: 16px;
+  /* Adjust the width to make it thick */
+}
+
+/* Remove the default up and down arrow buttons */
+.overflow-y-scroll::-webkit-scrollbar-button {
+  display: none;
+}
+
+.overflow-y-scroll::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  /* Default track background */
+  border-radius: 10px;
+  /* Make the track rounded */
+}
+
+.overflow-y-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(#5114AE, #802FCE);
+  /* Gradient background */
+  border-radius: 10px;
+  /* Make the scrollbar rounded */
+  border: 3px solid #f1f1f1;
+  /* Add a border to show the gradient better */
+}
+
+/* Firefox scrollbar styling */
+.overflow-y-scroll {
+  scrollbar-width: thin;
+  /* Make it thin */
+  scrollbar-color: #5114AE #f1f1f1;
+  /* Gradient background with default track color */
+}
+
+/* Custom scrollbar for Firefox using pseudo-elements */
+.overflow-y-scroll {
+  scrollbar-width: thin;
+  /* Make it thin */
+  scrollbar-color: #5114AE #f1f1f1;
+  /* Gradient background with default track color */
+}
+
+.overflow-y-scroll::-webkit-scrollbar-thumb:vertical {
+  background: linear-gradient(#5114AE, #802FCE);
+  /* Gradient background */
+  border-radius: 10px;
+  /* Make the scrollbar rounded */
+  border: 3px solid #f1f1f1;
+  /* Add a border to show the gradient better */
+}
+
+.container .box {
+  background-position: top !important;
+  box-shadow: -3px 7px 25px -4px rgba(1, 28, 113, 0.71);
+  -webkit-box-shadow: -3px 7px 25px -4px rgba(1, 28, 113, 0.71);
+  -moz-box-shadow: -3px 7px 25px -4px rgba(1, 28, 113, 0.71);
+  transition: background-position 8s ease-in-out !important;
+}
+
+.container .box:hover {
+  background-position: bottom !important;
+}
+
+.service-box-shadow {
+  box-shadow: 10px 10px 5px 3px #C3C2C2;
+  -webkit-box-shadow: 10px 10px 5px 3px #C3C2C2;
+  -moz-box-shadow: 10px 10px 5px 3px #C3C2C2;
+}
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to right, #5114AE, #802FCE);
+
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to right, #5114AE, #802FCE);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth !important;
+  overflow-x: hidden;
+}
+
+/**********************************************/
+.banner-pic .row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  /* margin-top: 6rem; */
+
+}
+
+.banner-pic .cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body.fancybox-active.compensate-for-scrollbar {
+  margin: 0px;
+}
+
+.banner-pic .hover-effect-bann {
+  /* height: 860px; */
+  /* background-size: cover !important; */
+}
+
+.banner-pic .hover-effect-bann .row,
+.banner-pic .hover-effect-bann .column,
+.banner-pic .hover-effect-bann .ItemCard,
+.banner-pic .hover-effect-bann .ItemCard__thumb {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+.banner-pic .hover-effect-bann .row {
+  position: absolute;
+  top: -60px;
+  left: 100vh;
+  width: 960px;
+  -webkit-transform: rotateX(70deg) rotateZ(25deg) scale(1.2);
+  transform: rotateX(70deg) rotateZ(25deg) scale(1.2);
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.banner-pic .hover-effect-bann.web-hov-change .row {
+  -webkit-transform: rotateX(40deg) rotateZ(15deg) scale(1.0);
+  transform: rotateX(40deg) rotateZ(15deg) scale(1.0);
+}
+
+.banner-pic .hover-effect-bann.web-hov-change .row .column {
+  max-width: 32%;
+}
+
+.banner-pic .hover-effect-bann .column {
+  width: 50%;
+  max-width: 22%;
+  padding: 10px;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 1 50%;
+  -ms-flex: 1 1 50%;
+  flex: 1 1 50%;
+}
+
+.banner-pic .hover-effect-bann .shadow {
+  display: block;
+  -webkit-transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  opacity: .9;
+  background-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
+  -webkit-animation: 1.5s cubic-bezier(0.165, 0.84, 0.44, 1) shadow 2;
+  animation: 1.5s cubic-bezier(0.165, 0.84, 0.44, 1) shadow 2;
+}
+
+.banner-pic .hover-effect-bann .ItemCard__thumb img {
+  position: relative;
+  z-index: 1;
+  -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: -webkit-transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), -webkit-transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  -webkit-transform: translate3d(0, 0, 20px);
+  transform: translate3d(0, 0, 20px);
+  -webkit-animation: 1.5s cubic-bezier(0.165, 0.84, 0.44, 1) levitate 2;
+  animation: 1.5s cubic-bezier(0.165, 0.84, 0.44, 1) levitate 2;
+}
+
+.banner-pic .hover-effect-bann .column:hover .ItemCard__dest {
+  z-index: 10;
+}
+
+.banner-pic .hover-effect-bann .column:hover .ItemCard__dest,
+.banner-pic .hover-effect-bann .column:hover .ItemCard__thumb img {
+  -webkit-transform: translate3d(0, 0, 45px) rotateX(-12deg) rotateY(20deg);
+  transform: translate3d(0, 0, 45px) rotateX(-12deg) rotateY(20deg);
+  -webkit-transform-origin: center bottom;
+  transform-origin: center bottom;
+}
+
+.banner-pic .hover-effect-bann.web-hov-change .column:hover .ItemCard__dest,
+.banner-pic .hover-effect-bann.web-hov-change .column:hover .ItemCard__thumb img {
+  -webkit-transform: translate3d(0, 0, 50px) rotateX(0deg);
+  transform: translate3d(0, 0, 50px) rotateX(0);
+}
+
+.banner-pic .hover-effect-bann .column:hover .ItemCard__thumb .shadow {
+  opacity: .6;
+  background-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px 6px rgba(0, 0, 0, 0.1);
+}
+
+.banner-pic .section--list .row {
+  max-width: 1200px;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 160px 0;
+}
+
+.banner-pic .section--list .column {
+  padding: 20px;
+}
+
+.banner-pic .hero {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  padding: 160px 40px 0 40px;
+  font-family: 'Roboto', sans-serif;
+  color: #fff;
+}
+
+.banner-pic .ItemCard {
+  position: relative;
+  max-width: 510px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.banner-pic .ItemCard__thumb {
+  position: relative;
+  padding: 0;
+}
+
+.banner-pic .ItemCard__thumb img {
+  display: block;
+  cursor: pointer;
+}
+
+.banner-pic .ItemCard__summary {
+  width: 100%;
+  padding: 20px;
+  background-color: #fff;
+}
+
+.banner-pic .ItemCard__title {
+  margin: 6px 0;
+  font-size: 1.2em;
+}
+
+.banner-pic .ItemCard__meta {
+  font-size: .8em;
+  color: #aaa;
+}
+
+.banner-pic .ItemCard__meta.category {
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #ec3e3a;
+}
+
+/* Define the clip-path for the watermelon slice shape */
+.clip-watermelon {
+  position: absolute;
+  top: 40px;
+  /* Adjust position to fit your design */
+  right: -0.5px;
+  /* Adjust position to fit your design */
+  width: 40px;
+  /* Adjust size as needed */
+  height: 40px;
+  /* Adjust size as needed */
+  background: linear-gradient(175deg, #5114AE, #802FCE);
+  /* Purple gradient */
+  clip-path: polygon(100% 0%, 100% 100%, 0% 100%, 50% 50%);
+  /* Create the slice shape */
+  border-radius: 50% 0 50% 0;
+  transform: rotate(-90deg);
+  /* Round the top-left and top-right corners */
+}
+
+
+
+@-webkit-keyframes levitate {
+  0% {
+    -webkit-transform: translate3d(0, 0, 20px);
+    transform: translate3d(0, 0, 20px);
+  }
+
+  50% {
+    -webkit-transform: translate3d(0, 0, 1px);
+    transform: translate3d(0, 0, 1px);
+  }
+
+  100% {
+    -webkit-transform: translate3d(0, 0, 20px);
+    transform: translate3d(0, 0, 20px);
+  }
+}
+
+@keyframes levitate {
+  0% {
+    -webkit-transform: translate3d(0, 0, 20px);
+    transform: translate3d(0, 0, 20px);
+  }
+
+  50% {
+    -webkit-transform: translate3d(0, 0, 1px);
+    transform: translate3d(0, 0, 1px);
+  }
+
+  100% {
+    -webkit-transform: translate3d(0, 0, 20px);
+    transform: translate3d(0, 0, 20px);
+  }
+}
+
+@-webkit-keyframes shadow {
+  0% {
+    opacity: .9;
+    background-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
+  }
+
+  50% {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.18);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.18);
+  }
+
+  100% {
+    opacity: .9;
+    background-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@keyframes shadow {
+  0% {
+    opacity: .9;
+    background-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
+  }
+
+  50% {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.18);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.18);
+  }
+
+  100% {
+    opacity: .9;
+    background-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/***********************************************/
+.logo-design-list {
+  list-style: none;
+  padding-left: 0em;
+  margin: 1.5em 0;
+}
+
+.logo-design-list>li {
+  position: relative;
+  padding-left: 1.1em;
+  margin-top: 0.4em;
+  font-size: 17.3px;
+  font-weight: 500;
+}
+
+.logo-design-list>li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 11px;
+  height: 11px;
+  background-color: #802FCE;
+  border-radius: 50%;
+}
+
+/* ModalAnimation.css */
+.modal {
+  transform: translateY(-100%);
+  transition: transform 0.3s ease-out;
+}
+
+.modal.open {
+  transform: translateY(0);
+}
+
+
+/* Slider Animation.css */
+.slider {
+  display: flex;
+  overflow-x: hidden;
+  /* Hide the scrollbar */
+}
+
+.sliderContent {
+  display: flex;
+  align-items: center;
+  animation: scroll 20s linear infinite;
+}
+
+.imageContainer {
+  flex: 0 0 auto;
+  /* Prevent images from shrinking */
+  margin-right: 90px;
+  align-items: center;
+  /* Adjust spacing between images */
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+
+@media (hover: none) {
+  .group:hover .box {
+    transform: none !important;
+    /* Remove transformation on hover for mobile */
+    box-shadow: none !important;
+    /* Remove box-shadow on hover for mobile */
+  }
+}
+
+@keyframes wave {
+  0%, 100% {
+    transform: scaleX(1) scaleY(1) rotate(0deg);
+  }
+
+  25% {
+    transform: scaleX(1.1) scaleY(0.9) rotate(-5deg);
+  }
+
+  50% {
+    transform: scaleX(1) scaleY(1) rotate(0deg);
+  }
+
+  75% {
+    transform: scaleX(0.9) scaleY(1.1) rotate(5deg);
+  }
+}
+
+.wavy-circle {
+  animation: wave 2s infinite ease-in-out;
+}
+
+.footer-form-shadow {
+  box-shadow: -3px 2px 16px -1px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: -3px 2px 16px -1px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -3px 2px 16px -1px rgba(0, 0, 0, 0.75);
+}

@@ -26,24 +26,14 @@ type FormData = {
 const schema = yup.object().shape({
   name: yup.string().required("Name is required"),
   email: yup.string().email("Invalid email format").required("Email is required"),
-  phone: yup.string().test('phone', 'Invalid phone number', (value, context) => {
+  phone: yup
+  .string()
+  .test("phone", "Invalid phone number", (value) => {
     if (!value) return false;
-    
-    // Remove country code and any non-digit characters
-    const numberOnly = value.replace(/[^\d]/g, '');
-    const countryCode = value.substring(0, 2);
-    
-    switch(countryCode) {
-      case '1':  // US/Canada
-        return numberOnly.length === 11; // Including country code
-      case '44': // UK
-        return numberOnly.length === 12; // Including country code
-      case '92': // Pakistan
-        return numberOnly.length === 12; // Including country code
-      default:
-        return numberOnly.length >= 10; // Default validation
-    }
-  }).required("Phone number is required"),
+    const numberOnly = value.replace(/[^\d]/g, "");
+    return numberOnly.length >= 10;
+  })
+  .required("Phone number is required"),
   message: yup.string().required("Message is required"),
   captcha: yup.string().required("Please complete the CAPTCHA"),
 });
@@ -66,35 +56,33 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   const onSubmit = async (data: FormData) => {
     setLoading(true);
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
+      const response = await fetch("/api/send-email2", { 
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Accept: "application/json",
         },
-        body: JSON.stringify({
-          access_key: 'a91d3e85-9c0f-41bb-bb33-c81da55c9c27',
-          name: data.name,
-          email: data.email,
-          phone: data.phone,
-          message: data.message,
-        }),
+        body: JSON.stringify(data),
       });
-
+  
       const result = await response.json();
+      console.log("Server response:", result); // Debugging
+      
       if (result.success) {
         reset();
         onClose();
         router.push("/thank-you");
       } else {
         console.error("Form Submission Failed:", result);
+        alert(`Error: ${result.message}`); // Show error to user
       }
     } catch (error) {
       console.error("An error occurred:", error);
+      alert("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
   };
+  
 
   if (!isOpen) return null;
 
@@ -161,8 +149,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                 {errors.phone && <p className="text-red-500 text-sm mt-1 px-3">{errors.phone.message}</p>}
               </div>
             </div>
-            <div>
-              <div className="w-full px-3 flex border border-gray-400 rounded-md">
+            <div className="w-full px-3 flex border border-gray-400 rounded-md">
                 <IoIosSend size={20} color="#5114AE" style={{ marginTop: "10px" }} />
                 <textarea
                   rows={5}
@@ -172,60 +159,25 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
                 />
               </div>
               {errors.message && <p className="text-red-500 text-sm mt-1 px-3">{errors.message.message}</p>}
+        
+            <div className="transform scale-90 mt-4 md:scale-100  text-center flex justify-center items-center mx-auto ">
+              <ReCAPTCHA
+                sitekey="6Ldilt4qAAAAALPYM37jOcJ-BRc6jEZn08IPlfnR"
+                onChange={(token: string | null) => token && setValue("captcha", token)}
+              />
+              {errors.captcha && (
+                <p className="text-red-500 text-sm text-center mt-2">
+                  {errors.captcha.message}
+                </p>
+              )}
             </div>
-
-            <div className="flex flex-col items-center gap-3">
-              {/* Captcha Container */}
-              <div className="w-full flex justify-center">
-                <div className="transform scale-90 mt-4 md:scale-100">
-                  <ReCAPTCHA
-                    sitekey="6Ldilt4qAAAAALPYM37jOcJ-BRc6jEZn08IPlfnR"
-                    onChange={(token: string | null) => token && setValue("captcha", token)}
-                  />
-                  {errors.captcha && (
-                    <p className="text-red-500 text-sm text-center mt-2">
-                      {errors.captcha.message}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              {/* Submit Button */}
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full max-w-[200px] text-base font-semibold cursor-pointer 
-                  py-4 px-8 bg-gradient-to-r from-[#5114AE] to-[#802FCE] 
-                  text-white rounded-full uppercase transition-all duration-300 
-                  hover:shadow-lg hover:opacity-90 disabled:opacity-70 
-                  disabled:cursor-not-allowed"
-              >
-                {loading ? (
-                  <div className="flex items-center justify-center gap-2">
-                    <svg
-                      aria-hidden="true"
-                      role="status"
-                      className="inline w-4 h-4 text-white animate-spin"
-                      viewBox="0 0 100 101"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                        fill="#E5E7EB"
-                      />
-                      <path
-                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                    <span>Submitting...</span>
-                  </div>
-                ) : (
-                  'Submit'
-                )}
-              </button>
-            </div>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full text-center flex mt-4 justify-center items-center mx-auto max-w-[200px] text-base font-semibold cursor-pointer py-4 px-8 bg-gradient-to-r from-[#5114AE] to-[#802FCE] text-white rounded-full uppercase transition-all duration-300 hover:shadow-lg hover:opacity-90 disabled:opacity-70 disabled:cursor-not-allowed"
+            >
+              {loading ? "Submitting..." : "Submit"}
+            </button>
           </form>
         </div>
       </div>

@@ -354,10 +354,10 @@ const Footer = () => {
             </h3>
             <ul className="mt-4">
               <li className="pt-1 md:pt-2 text-white text-sm">
-                Phone: (667) 423-5532
+                Phone: (713) 545-9411
               </li>
               <li className="pt-1 md:pt-2 text-white text-sm">
-                Address: 30 N Gould St Ste R, Sheridan, WY 82801, United States
+                Address: 17330 Preston Road Suite 200D Dallas, TX 75252
               </li>
               <li className="pt-1 md:pt-2 text-white text-sm">
                 Email: info@techcraftinc.com
